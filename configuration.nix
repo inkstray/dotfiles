@@ -54,6 +54,8 @@
     openssh.enable = true;
   };
 
+  security.polkit.enable = true;
+
   users.users.casey = {
     isNormalUser = true;
     description = "Casey";
@@ -68,8 +70,14 @@
       inherit (pkgs)
         discord
         prismlauncher
-        vscode
-        obsidian;
+        vscode-with-extensions
+        obsidian
+      ;
+
+      inherit (pkgs.vscode-extensions.catppuccin)
+	catppuccin-vsc
+	catppuccin-vsc-icons
+      ;
     };
   };
 
@@ -82,14 +90,15 @@
 
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
+    # base
       fuzzel
       kitty
       ungoogled-chromium
       pavucontrol
-      polkit-kde-agent
-      qt6ct;
-
-    inherit (pkgs.libsForQt5) qt5ct;
+      ;
+    # Qt stuff
+    inherit (pkgs.libsForQt5) qt5ct polkit-kde-agent;
+    inherit (pkgs.qt6Packages) qt6ct;
   };
 
   system.stateVersion = "23.11";
