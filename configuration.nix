@@ -10,11 +10,6 @@
     efi.canTouchEfiVariables = true;
   };
 
-  programs = {
-    hyprland.enable = true;
-    git.enable = true;
-  };
-
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
@@ -56,6 +51,36 @@
 
   security.polkit.enable = true;
 
+#
+# Packages
+#
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0" # For obsidian
+  ];
+
+  programs = {
+    hyprland.enable = true;
+    git.enable = true;
+  };
+
+  environment.systemPackages = builtins.attrValues {
+    inherit (pkgs)
+    # Basic stuffs
+      fuzzel
+      kitty
+      ungoogled-chromium
+      pavucontrol
+      home-manager
+      ;
+    # Qt stuff
+    inherit (pkgs.libsForQt5) qt5ct polkit-kde-agent;
+    inherit (pkgs.qt6Packages) qt6ct;
+  };
+
+#
+# User Stuff
+#
   users.users.casey = {
     isNormalUser = true;
     description = "Casey";
@@ -70,39 +95,16 @@
       inherit (pkgs)
         discord
         prismlauncher
-        vscode-with-extensions
+        vscode
         obsidian
-        home-manager
       ;
-
-      inherit (pkgs.vscode-extensions.catppuccin)
-	      catppuccin-vsc
-	      catppuccin-vsc-icons
-      ;
-      inherit (pkgs.vscode-extensions.bbenoist)
-        nix;
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
-    nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-  ];
-
+#
+# Environment
+#
   qt.platformTheme = "qt5ct";
-
-  environment.systemPackages = builtins.attrValues {
-    inherit (pkgs)
-    # base
-      fuzzel
-      kitty
-      ungoogled-chromium
-      pavucontrol
-      ;
-    # Qt stuff
-    inherit (pkgs.libsForQt5) qt5ct polkit-kde-agent;
-    inherit (pkgs.qt6Packages) qt6ct;
-  };
 
   system.stateVersion = "23.11";
 }
