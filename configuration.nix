@@ -94,7 +94,6 @@
       inherit (pkgs)
         discord
         prismlauncher
-        vscode
         obsidian
       ;
     };
