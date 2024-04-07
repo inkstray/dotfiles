@@ -69,8 +69,7 @@
         discord
         prismlauncher
         vscode
-        obsidian
-      ;
+        obsidian;
     };
   };
 
@@ -88,9 +87,9 @@
       ungoogled-chromium
       pavucontrol
       polkit-kde-agent
-      qt5ct
-      qt6ct
-    ;
+      qt6ct;
+
+    inherit (pkgs.libsForQt5) qt5ct;
   };
 
   system.stateVersion = "23.11";
