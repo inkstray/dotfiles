@@ -75,8 +75,11 @@
       ;
 
       inherit (pkgs.vscode-extensions.catppuccin)
-	catppuccin-vsc
-	catppuccin-vsc-icons
+	      catppuccin-vsc
+	      catppuccin-vsc-icons
+      ;
+      inherit (pkgs.vscode-extensions.bbenoist)
+        nix;
       ;
     };
   };
