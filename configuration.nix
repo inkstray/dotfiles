@@ -72,6 +72,7 @@
         prismlauncher
         vscode-with-extensions
         obsidian
+        home-manager
       ;
 
       inherit (pkgs.vscode-extensions.catppuccin)
@@ -80,7 +81,6 @@
       ;
       inherit (pkgs.vscode-extensions.bbenoist)
         nix;
-      ;
     };
   };
 
