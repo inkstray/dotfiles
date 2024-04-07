@@ -5,11 +5,13 @@
     ./hardware-configuration.nix
   ];
 
+### booting related
   boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
   };
 
+### networking, locale & time
   networking = {
     hostName = "nixos";
     networkmanager.enable = true;
@@ -31,6 +33,7 @@
     };
   };
 
+### services
   services = {
     xserver = {
       layout = "us";
@@ -51,9 +54,7 @@
 
   security.polkit.enable = true;
 
-#
-# Packages
-#
+### packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
     "electron-25.9.0" # For obsidian
@@ -66,21 +67,19 @@
 
   environment.systemPackages = builtins.attrValues {
     inherit (pkgs)
-    # Basic stuffs
+    # Basic
       fuzzel
       kitty
       ungoogled-chromium
       pavucontrol
       home-manager
       ;
-    # Qt stuff
+    # Qt
     inherit (pkgs.libsForQt5) qt5ct polkit-kde-agent;
     inherit (pkgs.qt6Packages) qt6ct;
   };
 
-#
-# User Stuff
-#
+### users
   users.users.casey = {
     isNormalUser = true;
     description = "Casey";
@@ -101,10 +100,9 @@
     };
   };
 
-#
-# Environment
-#
+### environment
   qt.platformTheme = "qt5ct";
 
+### system version
   system.stateVersion = "23.11";
 }
