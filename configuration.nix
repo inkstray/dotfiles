@@ -54,13 +54,14 @@
 
   security.polkit.enable = true;
 
-### packages
+### packages & programs
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
     "electron-25.9.0" # For obsidian
   ];
 
   programs = {
+    adb.enable = true;
     hyprland.enable = true;
     git.enable = true;
   };
@@ -89,12 +90,14 @@
       "pipewire"
       "tty"
       "wheel"
+      "adbusers"
     ];
     packages = builtins.attrValues {
       inherit (pkgs)
         discord
         prismlauncher
         obsidian
+        aseprite
       ;
     };
   };
