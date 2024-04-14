@@ -74,7 +74,10 @@
       ungoogled-chromium
       pavucontrol
       home-manager
+      python311
       ;
+    # Python stuff
+    inherit (pkgs.python311Packages) pyusb pyserial;
     # Qt
     inherit (pkgs.libsForQt5) qt5ct polkit-kde-agent;
     inherit (pkgs.qt6Packages) qt6ct;
@@ -94,10 +97,10 @@
     ];
     packages = builtins.attrValues {
       inherit (pkgs)
-        discord
         prismlauncher
         obsidian
         aseprite
+        inkscape
       ;
     };
   };
